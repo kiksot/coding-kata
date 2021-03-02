@@ -1,0 +1,20 @@
+{
+  "name": "coding-kata",
+  "version": "1.0.0",
+  "description": "All technical interviews taken with _Strandkorb Jetzt_ will be performed in the same manner, in order to minimise variance in the recruitment process. This should ensure the interview process is fair to the candidates, and also that _Strandkorb Jetzt_ do not miss opportunities to hire good candidates.",
+  "main": "dist/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.31"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NasCorp/coding-kata.git"
+  },
+  "author": "Nikolay Shurkalin",
+  "license": "ISC"
+}
