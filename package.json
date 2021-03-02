@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "All technical interviews taken with _Strandkorb Jetzt_ will be performed in the same manner, in order to minimise variance in the recruitment process. This should ensure the interview process is fair to the candidates, and also that _Strandkorb Jetzt_ do not miss opportunities to hire good candidates.",
   "main": "dist/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
