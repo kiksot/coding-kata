@@ -51,7 +51,18 @@ export class Cart extends Entity<ICartProps> {
     }
 
     public add(item: Item, quantity: number): void {
-        const products = [...this.products, { item, quantity }];
+        const products = this.products;
+        const index = this.products.findIndex(
+            (product) => product.item.id === item.id,
+        );
+
+        if (index > -1) {
+            products[index].quantity = products[index].quantity + quantity;
+
+            return this.setProducts(products);
+        }
+
+        products.push({ item, quantity });
         this.setProducts(products);
     }
 
