@@ -12,7 +12,7 @@ test('Should create cart', () => {
     const cart = new Cart({
         products: [product],
     });
-    expect(cart.totalPrice).toBe(4);
+    expect(cart.totalPrice([])).toBe(4);
 });
 
 test('Should add product without dublicates', () => {
@@ -24,7 +24,7 @@ test('Should add product without dublicates', () => {
 
     cart.add(item, 2);
     expect(cart.products.length).toBe(1);
-    expect(cart.totalPrice).toBe(14);
+    expect(cart.totalPrice([])).toBe(14);
 });
 
 test('Should calculate total count of cart using special offer', () => {
@@ -34,6 +34,7 @@ test('Should calculate total count of cart using special offer', () => {
         offer: {
             quantity: 4,
             price: 6,
+            offerId: 'Test',
         },
     };
     const item = new Item(itemProps);
@@ -41,5 +42,5 @@ test('Should calculate total count of cart using special offer', () => {
     const cart = new Cart({
         products: [product],
     });
-    expect(cart.totalPrice).toBe(8);
+    expect(cart.totalPrice(['Test'])).toBe(8);
 });

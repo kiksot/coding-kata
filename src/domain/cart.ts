@@ -44,9 +44,12 @@ export class Cart extends Entity<ICartProps> {
         return this.props.products;
     }
 
-    get totalPrice(): number {
+    public totalPrice(activeOffersId: string[]): number {
         const sum = (acc: number, product: CartItem) => {
-            return product.item.offer
+            return product.item.offer &&
+                activeOffersId.find(
+                    (offerId) => offerId === product.item.offer?.offerId,
+                )
                 ? acc + new SpecialPrice(product.item.offer).getPrice(product)
                 : acc + product.item.price * product.quantity;
         };
