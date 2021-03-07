@@ -1,9 +1,11 @@
 import { Entity } from './entity';
+import { ISpecialPrice } from './special';
 
 export interface IItem {
     id?: string;
     displayName: string;
     price: number;
+    offer?: ISpecialPrice;
 }
 
 export class Item extends Entity<IItem> {
@@ -21,7 +23,17 @@ export class Item extends Entity<IItem> {
             id: this.id,
             displayName: this.displayName,
             price: this.price,
+            offer: this.offer,
         };
+    }
+
+    public hasOffer(): boolean {
+        return this.props.offer ? true : false;
+    }
+
+    public setOffer(offer: ISpecialPrice): ISpecialPrice {
+        this.props.offer = offer;
+        return this.props.offer;
     }
 
     get id(): string {
@@ -34,5 +46,9 @@ export class Item extends Entity<IItem> {
 
     get price(): number {
         return this.props.price;
+    }
+
+    get offer(): ISpecialPrice | undefined {
+        return this.props.offer;
     }
 }

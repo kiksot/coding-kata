@@ -26,3 +26,20 @@ test('Should add product without dublicates', () => {
     expect(cart.products.length).toBe(1);
     expect(cart.totalPrice).toBe(14);
 });
+
+test('Should calculate total count of cart using special offer', () => {
+    const itemProps = {
+        price: 2,
+        displayName: 'Apple',
+        offer: {
+            quantity: 4,
+            price: 6,
+        },
+    };
+    const item = new Item(itemProps);
+    const product = { item, quantity: 5 };
+    const cart = new Cart({
+        products: [product],
+    });
+    expect(cart.totalPrice).toBe(8);
+});

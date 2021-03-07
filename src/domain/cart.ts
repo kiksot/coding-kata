@@ -1,5 +1,6 @@
 import { Entity } from './entity';
 import { Item } from './item';
+import { SpecialPrice } from './special';
 
 export interface CartItem {
     item: Item;
@@ -21,7 +22,7 @@ export class Cart extends Entity<ICartProps> {
 
         if (instance.products) {
             const products = instance.products.map((product) => ({
-                item: Item.create(product.item),
+                item: product.item,
                 quantity: product.quantity,
             }));
 
@@ -45,24 +46,37 @@ export class Cart extends Entity<ICartProps> {
 
     get totalPrice(): number {
         const sum = (acc: number, product: CartItem) => {
-            return acc + product.item.price * product.quantity;
+            return product.item.offer
+                ? acc +
+                      new SpecialPrice(product.item.offer).getPrice(
+                          product.item.price,
+                          product.quantity,
+                      )
+                : acc + product.item.price * product.quantity;
         };
         return this.products.reduce(sum, 0);
     }
 
     public add(item: Item, quantity: number): void {
-        const products = this.products;
         const index = this.products.findIndex(
             (product) => product.item.id === item.id,
         );
-
         if (index > -1) {
-            products[index].quantity = products[index].quantity + quantity;
+            const product = {
+                ...this.products[index],
+                quantity: this.products[index].quantity + quantity,
+            };
+
+            const products = [
+                ...this.products.slice(0, index),
+                product,
+                ...this.products.slice(index + 1),
+            ];
 
             return this.setProducts(products);
         }
 
-        products.push({ item, quantity });
+        const products = [...this.products, { item, quantity }];
         this.setProducts(products);
     }
 
