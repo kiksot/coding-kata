@@ -47,11 +47,7 @@ export class Cart extends Entity<ICartProps> {
     get totalPrice(): number {
         const sum = (acc: number, product: CartItem) => {
             return product.item.offer
-                ? acc +
-                      new SpecialPrice(product.item.offer).getPrice(
-                          product.item.price,
-                          product.quantity,
-                      )
+                ? acc + new SpecialPrice(product.item.offer).getPrice(product)
                 : acc + product.item.price * product.quantity;
         };
         return this.products.reduce(sum, 0);

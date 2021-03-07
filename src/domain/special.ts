@@ -1,3 +1,5 @@
+import { CartItem } from './cart';
+
 export interface ISpecialPrice {
     quantity: number;
     price: number;
@@ -11,11 +13,15 @@ export class SpecialPrice implements ISpecialPrice {
         this.price = model.price;
     }
 
-    public getPrice(usualPrice: number, quantity: number) {
+    public getPrice(product: CartItem) {
+        const usualPrice = product.item.price;
         const numberOffers =
-            this.quantity > 0 ? Math.trunc(quantity / this.quantity) : 0;
+            this.quantity > 0
+                ? Math.trunc(product.quantity / this.quantity)
+                : 0;
         const numberOfferProducts = numberOffers * this.quantity;
-        const numberProductsWithoutOffer = quantity - numberOfferProducts;
+        const numberProductsWithoutOffer =
+            product.quantity - numberOfferProducts;
         return (
             numberProductsWithoutOffer * usualPrice +
             numberOffers *
