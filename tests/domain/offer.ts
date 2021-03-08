@@ -32,5 +32,5 @@ test('Should calculate if the offer is Active', () => {
     cart.add(apple, 5);
     cart.add(banan, 4);
 
-    expect(cart.totalPrice).toBe(580);
+    expect(cart.totalPrice(['weekOffer'])).toBe(580);
 });
